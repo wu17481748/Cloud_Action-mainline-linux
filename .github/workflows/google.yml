@@ -31,7 +31,7 @@ jobs:
         sudo -E apt-get -qq update
         sudo -E apt-get -qq install binfmt-support qemu-user-static gcc-10-aarch64-linux-gnu kernel-package fakeroot simg2img img2simg mkbootimg bison flex gcc-aarch64-linux-gnu pkg-config libncurses-dev libssl-dev unzip git device-tree-compiler
 
-    - name: Clone source code
+    - name: 下载主线内核源码
       working-directory: /workdir
       run: |
         df -hT $PWD
