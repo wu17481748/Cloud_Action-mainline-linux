@@ -52,15 +52,11 @@ jobs:
         make deb-pkg -j8
 
     - name: 使用预构建rootfs系统镜像安装内核
-      id: compile
       run: |
-        cd openwrt
-        echo -e "$(nproc) thread compile"
-        make -j$(nproc) || make -j1 || make -j1 V=s
-        echo "::set-output name=status::success"
-        grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
-        [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
-        echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
+        cd $GITHUB_WORKSPACE
+        wget https://github.com/OpenStick/OpenStick/releases/download/v1/debian.zip && unzip debian.zip
+        ls
+        sleep 120
 
     - name: Check space usage
       if: (!cancelled())
