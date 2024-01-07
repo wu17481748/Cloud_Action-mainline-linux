@@ -32,6 +32,7 @@ jobs:
 
     - name: 下载主线内核源码
       run: |
+        cd $GITHUB_WORKSPACE
         git clone  https://github.com/OpenStick/linux.git --depth 1
 
 
@@ -44,13 +45,13 @@ jobs:
 
     - name: 开始编译内核
       run: |
-        cd linux
+        cd $GITHUB_WORKSPACE/linux
         export ARCH=arm64
         export CROSS_COMPILE=aarch64-linux-gnu-
         make msm8916_defconfig
         make deb-pkg -j8
 
-    - name: Compile the firmware
+    - name: 使用预构建rootfs系统镜像安装内核
       id: compile
       run: |
         cd openwrt
