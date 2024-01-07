@@ -70,7 +70,7 @@ jobs:
         apt install *.deb
         rm *.deb
         exit
-        sudo cp debian/boot/initrd* ./initrd.img
+        sudo cp -a debian/boot/initrd* ./initrd.img
         sudo umount debian/proc 
         sudo umount debian/dev/pts
         sudo umount debian/dev
