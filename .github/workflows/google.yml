@@ -81,8 +81,8 @@ jobs:
     - name: 构建boot内核映像
       if: (!cancelled())
       run: |
-       mkdir boot
-       mkdir kernel-dtb
+       wget 脚本
+       sudo cp -a linux/arch/arm64/boot/dts/qcom/ufi*.dtb ./
       
 
     - name: Upload bin directory
