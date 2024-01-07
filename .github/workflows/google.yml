@@ -31,7 +31,6 @@ jobs:
         sudo -E apt-get -qq install binfmt-support qemu-user-static gcc-10-aarch64-linux-gnu kernel-package fakeroot simg2img img2simg mkbootimg bison flex gcc-aarch64-linux-gnu pkg-config libncurses-dev libssl-dev unzip git device-tree-compiler
 
     - name: 下载主线内核源码
-      working-directory: /workdir
       run: |
         git clone  https://github.com/OpenStick/linux.git --depth 1
 
@@ -45,7 +44,7 @@ jobs:
 
     - name: 开始编译内核
       run: |
-        cd /workdir/linux
+        cd linux
         export ARCH=arm64
         export CROSS_COMPILE=aarch64-linux-gnu-
         make msm8916_defconfig
