@@ -59,12 +59,13 @@ jobs:
         rm -rf debian/*
         sudo simg2img rootfs.img root.img
         sudo rm -rf rootfs.img
+        ls
         sudo mount root.img debian
         sudo mount --bind /proc debian/proc 
         sudo mount --bind /dev debian/dev
         sudo mount --bind /dev/pts debian/dev/pts
         sudo mount --bind /sys debian/sys
-        cp *.deb debian/
+        sudo cp -a *.deb debian/
         ls
         ls debian/
         sudo chroot debian
