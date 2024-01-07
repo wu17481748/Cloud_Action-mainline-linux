@@ -83,7 +83,7 @@ jobs:
       if: (!cancelled())
       run: |
        wget https://github.com/wu17481748/Cloud_Action-mainline-linux/releases/download/%E8%84%9A%E6%9C%AC/boot.sh
-       sudo cp -a linux/arch/arm64/boot/dts/qcom/ufi*.dtb ./
+       sudo cp -a linux/arch/arm64/boot/dts/qcom/*ufi*.dtb ./
        sudo cp -a linux/arch/arm64/boot/Image.gz ./
        sudo chmod 777 boot.sh
        ./boot.sh
