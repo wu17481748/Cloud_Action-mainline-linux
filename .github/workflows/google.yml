@@ -51,7 +51,7 @@ jobs:
         make msm8916_defconfig
         make deb-pkg -j8
 
-    - name: 使用预构建rootfs系统镜像安装内核
+    - name: 使用预构建rootfs生成系统镜像
       run: |
         cd $GITHUB_WORKSPACE
         wget https://github.com/OpenStick/OpenStick/releases/download/v1/debian.zip && unzip debian.zip
@@ -68,9 +68,16 @@ jobs:
         apt install *.deb
         rm *.deb
         exit
+        sudo umount debian/proc 
+        sudo umount debian/dev/pts
+        sudo umount debian/dev
+        sudo umount debian/sys
+        sudo umount debian
+        rm rootfs.img
+        sudo img2simg root.img rootfs.img
         sleep 120
 
-    - name: Check space usage
+    - name: 
       if: (!cancelled())
       run: df -hT
 
