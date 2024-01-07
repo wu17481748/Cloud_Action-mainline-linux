@@ -20,10 +20,10 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-    - name: 工具链依赖包安装
+    - name: 环境检查
       uses: actions/checkout@main
 
-    - name: Initialization environment
+    - name: 安装构建环境
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
