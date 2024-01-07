@@ -57,6 +57,7 @@ jobs:
         wget https://github.com/OpenStick/OpenStick/releases/download/v1/debian.zip && unzip debian.zip
         mv debian/rootfs.img ./
         sudo simg2img rootfs.img root.img
+        sudo rm -rf rootfs.img
         sudo mount root.img debian
         sudo mount --bind /proc debian/proc 
         sudo mount --bind /dev debian/dev
@@ -68,18 +69,21 @@ jobs:
         apt install *.deb
         rm *.deb
         exit
+        sudo cp debian/boot/initrd* ./initrd.img
         sudo umount debian/proc 
         sudo umount debian/dev/pts
         sudo umount debian/dev
         sudo umount debian/sys
         sudo umount debian
-        rm rootfs.img
         sudo img2simg root.img rootfs.img
         sleep 120
 
-    - name: 
+    - name: 构建boot内核映像
       if: (!cancelled())
-      run: df -hT
+      run: |
+       mkdir boot
+       mkdir kernel-dtb
+      
 
     - name: Upload bin directory
       uses: actions/upload-artifact@main
