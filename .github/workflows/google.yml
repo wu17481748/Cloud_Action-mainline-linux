@@ -56,6 +56,7 @@ jobs:
         cd $GITHUB_WORKSPACE
         wget https://github.com/OpenStick/OpenStick/releases/download/v1/debian.zip && unzip debian.zip
         mv debian/rootfs.img ./
+        rm -rf debian/*
         sudo simg2img rootfs.img root.img
         sudo rm -rf rootfs.img
         sudo mount root.img debian
@@ -81,8 +82,10 @@ jobs:
     - name: 构建boot内核映像
       if: (!cancelled())
       run: |
-       wget 脚本
+       wget https://github.com/wu17481748/Cloud_Action-mainline-linux/releases/download/%E8%84%9A%E6%9C%AC/boot.sh
        sudo cp -a linux/arch/arm64/boot/dts/qcom/ufi*.dtb ./
+       sudo chmod 777 boot.sh
+       ./boot.sh
       
 
     - name: Upload bin directory
