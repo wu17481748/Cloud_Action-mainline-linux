@@ -33,9 +33,7 @@ jobs:
     - name: 下载主线内核源码
       working-directory: /workdir
       run: |
-        df -hT $PWD
-        git clone $REPO_URL -b $REPO_BRANCH openwrt
-        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        git clone  https://github.com/OpenStick/linux.git --depth 1
 
 
     - name: 连接云编译-SSH-修改内核配置
@@ -46,13 +44,12 @@ jobs:
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
 
     - name: 开始编译内核
-      id: package
       run: |
-        cd openwrt
-        make defconfig
-        make download -j8
-        find dl -size -1024c -exec ls -l {} \;
-        find dl -size -1024c -exec rm -f {} \;
+        cd /workdir/linux
+        export ARCH=arm64
+        export CROSS_COMPILE=aarch64-linux-gnu-
+        make msm8916_defconfig
+        make deb-pkg -j8
 
     - name: Compile the firmware
       id: compile
