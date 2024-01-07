@@ -65,6 +65,8 @@ jobs:
         sudo mount --bind /dev/pts debian/dev/pts
         sudo mount --bind /sys debian/sys
         cp *.deb debian/
+        ls
+        ls debian/
         sudo chroot debian
         dpkg -l | grep -E "linux-headers|linux-image" |awk '{print $2}'|xargs dpkg -P
         apt install *.deb
