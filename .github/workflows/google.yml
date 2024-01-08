@@ -54,12 +54,6 @@ jobs:
         cp -a *.deb boot-deb/
 
         
-    - name: 上传deb内核软件包
-      uses: actions/upload-artifact@main
-      with:
-        name: boot-deb
-        path: $GITHUB_WORKSPACE/boot-deb
-        
     - name: 使用预构建rootfs生成系统镜像
       run: |
         cd $GITHUB_WORKSPACE
@@ -97,7 +91,7 @@ jobs:
         sleep 120
 
     - name: 构建boot内核映像
-      if: (!cancelled())
+      if:
       run: |
        cd $GITHUB_WORKSPACE
        wget https://github.com/wu17481748/Cloud_Action-mainline-linux/releases/download/%E8%84%9A%E6%9C%AC/boot.sh
@@ -106,7 +100,13 @@ jobs:
        sudo chmod 777 boot.sh
        ./boot.sh
        ls boot
-      
+
+    - name: 上传deb内核软件包
+      uses: actions/upload-artifact@main
+      with:
+        name: boot-deb
+        path: $GITHUB_WORKSPACE/boot-deb
+        
 
     - name: 上传rootfs系统镜像
       uses: actions/upload-artifact@main
