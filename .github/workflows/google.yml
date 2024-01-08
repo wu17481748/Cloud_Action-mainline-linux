@@ -51,7 +51,16 @@ jobs:
         export CROSS_COMPILE=aarch64-linux-gnu-
         make msm8916_defconfig
         make deb-pkg -j8
+        mdir boot-deb
+        cp -a *.deb boot-deb/
 
+        
+    - name: 上传deb内核软件包
+      uses: actions/upload-artifact@main
+      with:
+        name: boot-deb
+        path: $GITHUB_WORKSPACE/boot-deb
+        
     - name: 使用预构建rootfs生成系统镜像
       run: |
         cd $GITHUB_WORKSPACE
