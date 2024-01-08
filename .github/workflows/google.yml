@@ -71,6 +71,8 @@ jobs:
         ls
         ls debian/
         ls debian/boot
+        ls debian/sys
+        ls debian/dev
         sudo chroot debian
         dpkg -l | grep -E "linux-headers|linux-image" |awk '{print $2}'|xargs dpkg -P
         apt install *.deb
